@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,7 +39,7 @@ class _ImageSelected extends State<ImageSelected> {
       List.generate(42, (i) => 'msg' + (i + 1).toString() + '.jpg');
   int selector = 0;
 
-  AssetImage nextImage() {
+  AssetImage _nextImage() {
     if (++selector >= images.length) selector = 0;
     return AssetImage('images/' + images[selector]);
   }
@@ -55,8 +58,8 @@ class _ImageSelected extends State<ImageSelected> {
           child: FloatingActionButton.extended(
             onPressed: () {
               setState(() {
-                selectedImage = nextImage();
-                print(images);
+                selectedImage = _nextImage();
+                print(file.toString());
               });
             },
             label: Text(
