@@ -6,5 +6,5 @@ Definição
 ==========
 Cuidado, a felicidade pode te fazer infeliz. Leia algumas mensagens para desmotivar o seu dia.
 
-.. figure:: screenshot.png
+.. figure:: app_screenshot.png
 
