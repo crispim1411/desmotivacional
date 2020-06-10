@@ -1,13 +1,11 @@
-import 'dart:io';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Home());
 }
 
-class MyApp extends StatelessWidget {
+class Home extends StatelessWidget {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
             title: Text(
               'Mensagens desmotivacionais',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 color: Colors.black,
               ),
             ),
@@ -25,6 +23,7 @@ class MyApp extends StatelessWidget {
           ),
           body: Center(child: ImageSelected()),
           backgroundColor: Colors.black,
+          bottomSheet: Text('By Rodrigo Crispim', style: TextStyle(fontSize: 16, color: Colors.purple[700], backgroundColor: Colors.black)),
         ),
     );
   }
@@ -36,16 +35,17 @@ class ImageSelected extends StatefulWidget {
 
 class _ImageSelected extends State<ImageSelected> {
   final List<String> images =
-      List.generate(42, (i) => 'msg' + (i + 1).toString() + '.jpg');
+    List.generate(42, (i) => 'msg' + (i + 1).toString() + '.jpg');
+  final Random random = Random();
   int selector = 0;
 
   AssetImage _nextImage() {
-    if (++selector >= images.length) selector = 0;
+    selector = random.nextInt(images.length);
     return AssetImage('images/' + images[selector]);
   }
 
   Widget build(BuildContext context) {
-    var selectedImage = AssetImage('images/' + images[selector]);
+    var selectedImage = _nextImage();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +59,6 @@ class _ImageSelected extends State<ImageSelected> {
             onPressed: () {
               setState(() {
                 selectedImage = _nextImage();
-                print(file.toString());
               });
             },
             label: Text(
